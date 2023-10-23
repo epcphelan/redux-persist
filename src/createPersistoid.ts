@@ -53,8 +53,10 @@ export default function createPersistoid(config: PersistConfig<any>): Persistoid
       }
     })
 
-    // start the time iterator if not running (read: throttle)
-    if (writeTimeout === null) {
+    if (!throttle) {
+      flush()
+    } else if (writeTimeout === null) {
+      // start the time iterator if not running (read: throttle)
       writeTimeout = setTimeout(flush, throttle)
     }
 
